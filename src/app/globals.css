@@ -1,26 +1,199 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f5f0e8;
+  --bg-2: #fffcf7;
+  --forest: #183d32;
+  --forest-deep: #102b23;
+  --gold: #c18b55;
+  --text: #242424;
+  --text-2: #77736c;
+  --border: #e6ded1;
+  --btn: #183d32;
+  --btn-text: #fffcf7;
+  --ring: #183d32;
+}
+
+.dark {
+  --bg: #0e1814;
+  --bg-2: #15241e;
+  --forest: #d7e2dc;
+  --forest-deep: #0a120f;
+  --gold: #c18b55;
+  --text: #f5f0e8;
+  --text-2: #b8afa4;
+  --border: #2c3f37;
+  --btn: #f5f0e8;
+  --btn-text: #102b23;
+  --ring: #c18b55;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
+  --color-gold: var(--gold);
+  --color-ink: var(--text);
+  --color-muted: var(--text-2);
+  --color-line: var(--border);
+  --color-btn: var(--btn);
+  --color-btn-text: var(--btn-text);
+  --color-pine: #183d32;
+  --color-pine-deep: #102b23;
+  --color-cream: #f5f0e8;
+  --color-ivory: #fffcf7;
+  --color-sand: #e6ded1;
+  --font-display: var(--font-manrope);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-padding-top: calc(4rem + 1px);
+  background: var(--bg);
+}
+
+@media (min-width: 640px) {
+  html {
+    scroll-padding-top: calc(4.25rem + 1px);
   }
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Hero intro: hidden only when the head script confirms motion is allowed; the
+   delayed keyframe guarantees visibility if hydration never completes. */
+.motion [data-intro] {
+  visibility: hidden;
+  animation: intro-failsafe 0s linear 3.5s forwards;
+}
+
+@keyframes intro-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+
+.numeral-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--gold) 55%, transparent);
+}
+
+.mask-line,
+.split-line-mask {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01" on, "cv11" on;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--gold) 35%, transparent);
+  color: var(--text);
+}
+
+:focus-visible:not(.contact-field) {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.contact-form .contact-field {
+  appearance: none;
+  -webkit-appearance: none;
+  border-color: var(--border);
+  border-style: solid;
+  border-width: 0 0 1px;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  outline-offset: 0;
+}
+
+.contact-form .contact-field:focus,
+.contact-form .contact-field:focus-visible,
+.contact-form .contact-field:active {
+  border-color: var(--gold);
+  border-width: 0 0 1px;
+  box-shadow: none;
+  outline: none;
+}
+
+.contact-form .contact-field:-moz-focusring {
+  color: inherit;
+  outline: none;
+  outline-offset: 0;
+}
+
+main[tabindex="-1"]:focus,
+section[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.font-display {
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+.label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@media (min-width: 640px) {
+  .label {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+  }
+}
+
+.hairline {
+  height: 1px;
+  background: var(--border);
+}
+
+@media print {
+  header,
+  footer {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
