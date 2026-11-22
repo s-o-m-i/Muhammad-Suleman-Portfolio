@@ -7,7 +7,7 @@ import { site, socialLinks } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 const disciplines = [
-  { label: "Software Engineering", value: "MERN Stack · Next.js · TypeScript · SaaS" },
+  { label: "Software Engineering", value: "MERN Stack · Next.js · TypeScript · SaaS · WordPress · Shopify" },
   { label: "SEO & Growth", value: "Technical SEO · Keyword Research · On-Page SEO · Organic Growth" },
 ];
 
